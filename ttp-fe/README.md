@@ -1,4 +1,4 @@
-The backend repository to this project is located [here][https://github.com/EliasAHH/TTP-BE].
+The backend repository to this project is located [here](https://github.com/EliasAHH/TTP-BE).
 
 
 
