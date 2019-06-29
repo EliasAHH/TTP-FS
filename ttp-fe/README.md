@@ -1,3 +1,9 @@
+The backend repository to this project is located [here][https://github.com/EliasAHH/TTP-BE].
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
