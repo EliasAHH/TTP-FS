@@ -55,3 +55,12 @@ export const fetchUser = token => {
     })
   }
 }
+
+
+export const removeCurrentUser = () =>{
+  return dispatch => {
+    dispatch({
+      type:"REMOVE_USER"
+    })
+  }
+}

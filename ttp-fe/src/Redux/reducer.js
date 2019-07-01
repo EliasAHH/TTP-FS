@@ -1,5 +1,6 @@
 const initialState = {
-  currentUser:{}
+  currentUser:{},
+  testing:[]
 }
 
 
@@ -13,6 +14,9 @@ const reducer = (state = initialState,action) => {
     case "GET_USER":
       return {...state, currentUser:action.payload};
 
+    case "REMOVE_USER":
+      localStorage.removeItem("token");
+      return {...state, currentUser:null}
 
     default:
     return state;
