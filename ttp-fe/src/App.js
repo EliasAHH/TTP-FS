@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import { fetchUser } from './Redux/actioncreator';
+import { fetchUser,removeCurrentUser } from './Redux/actioncreator';
 
 class App extends Component {
 
@@ -18,12 +18,17 @@ class App extends Component {
     }
   }
 
+  handleLogout = () => {
+    localStorage.removeItem("token");
+    this.props.removeCurrentUser();
+
+  }
+
 
   render() {
-    console.log(this.props.testing,"I'm testing this out.");
     return (
       <Fragment >
-        <Navbar />
+        <Navbar handleLogout={this.handleLogout}/>
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
         <Route exact path='/' component ={Home} />
@@ -39,4 +44,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps,{ fetchUser })(App));
+export default withRouter(connect(mapStateToProps,{ fetchUser,removeCurrentUser })(App));

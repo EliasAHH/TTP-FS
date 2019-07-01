@@ -1,20 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { removeCurrentUser } from '../Redux/actioncreator';
-
-// cannot use my action creator functions have to manually connect redux . I need to find a better way since this is a functional component.
-
-
-
 
 const Navbar = (props) => {
-
-  const handleLogout = () => {
-    localStorage.removeItem("token")
-    debugger
-    this.props.removeCurrentUser()
-  }
 
   if(!localStorage.token) {
     return (
@@ -26,7 +14,7 @@ const Navbar = (props) => {
   } else {
     return (
       <div>
-        <Link to="/" onClick={handleLogout}> Logout </Link>
+        <Link to="/" onClick={props.handleLogout}> Logout </Link>
       </div>
     )
   }
@@ -36,4 +24,4 @@ const Navbar = (props) => {
 
 
 
-export default withRouter(connect(null,{ removeCurrentUser })(Navbar))
+export default withRouter(Navbar)
