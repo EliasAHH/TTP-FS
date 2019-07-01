@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { handleSignup } from '../Redux/actioncreator'
 
 
 class Signup extends Component {
@@ -18,6 +19,7 @@ class Signup extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.props.handleSignup(this.state);
   }
 
   render() {
@@ -39,4 +41,4 @@ class Signup extends Component {
   }
 
 }
-export default connect(null,{})(Signup)
+export default connect(null,{ handleSignup })(Signup)
