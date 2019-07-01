@@ -33,7 +33,7 @@ class Signup extends Component {
           <input placeholder="Email" name="email" onChange={this.handleChange}/>
          </label>
         <label> Password
-          <input placeholder="Password" name="password" onChange={this.handleChange}/>
+          <input type="password" placeholder="Password" name="password" onChange={this.handleChange}/>
         </label>
         <button type="submit"> Submit </button>
       </form>

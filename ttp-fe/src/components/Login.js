@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { handleLogin } from '../Redux/actioncreator'
 
 class Login extends Component {
 
@@ -17,17 +17,19 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.props.handleLogin(this.state)
   }
 
   render() {
     console.log(this.state);
     return(
       <form onSubmit={this.handleSubmit}>
+        <h1> Login </h1>
         <label> Email
           <input placeholder="Email" name="email" onChange={this.handleChange}/>
          </label>
         <label> Password
-          <input placeholder="Password" name="password" onChange={this.handleChange}/>
+          <input type= "password" placeholder="Password" name="password" onChange={this.handleChange}/>
         </label>
         <button type="submit">Submit </button>
       </form>
@@ -35,4 +37,4 @@ class Login extends Component {
   }
 
 }
-export default connect(null,{})(Login)
+export default connect(null,{ handleLogin })(Login)

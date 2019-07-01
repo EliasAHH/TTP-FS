@@ -2,22 +2,25 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import { fetchUser } from './Redux/actioncreator'
 
 class App extends Component {
 
   componentDidMount() {
-    if(localStorage.getItem("token")) {
-      console.log("YAY WE HAVE A TOKEN")
+    if(this.props.currentUser === null) {
+      if(localStorage.getItem("token")) {
+        this.props.fetchUser(localStorage.token);
+      }
     }
   }
 
 
   render() {
     return (
-      <Fragment>
+      <Fragment >
         <Login />
         <Signup />
-      </Fragment>
+      </Fragment >
     )
 
   }
@@ -29,4 +32,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps,{ fetchUser })(App);

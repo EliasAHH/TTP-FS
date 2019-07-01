@@ -1,5 +1,5 @@
 const initialState = {
-  currentUser:null
+  currentUser:{}
 }
 
 
@@ -7,8 +7,12 @@ const reducer = (state = initialState,action) => {
   switch(action.type) {
 
     case "LOG_IN_SIGN_UP":
-    localStorage.setItem("token", action.payload.jwt);
-    return {...state, currentUser:action.payload};
+      localStorage.setItem("token", action.payload.jwt);
+      return state;
+
+    case "GET_USER":
+      return {...state, currentUser:action.payload};
+
 
     default:
     return state;
