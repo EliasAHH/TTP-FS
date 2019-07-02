@@ -5,6 +5,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
+import Profile from './containers/Profile'
+import Transactions from './containers/Transactions'
 import { fetchUser,removeCurrentUser } from './Redux/actioncreator';
 
 class App extends Component {
@@ -31,6 +33,8 @@ class App extends Component {
         <Navbar handleLogout={this.handleLogout}/>
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
+        <Route path='/profile' component={Profile}/>
+        <Route path='/transactions' component={Transactions}/>
         <Route exact path='/' component ={Home} />
       </Fragment >
     )

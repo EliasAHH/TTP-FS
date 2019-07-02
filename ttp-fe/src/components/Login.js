@@ -37,4 +37,4 @@ class Login extends Component {
   }
 
 }
-export default connect(null,{ handleLogin })(Login)
+export default connect(null,{ handleLogin })(Login);
