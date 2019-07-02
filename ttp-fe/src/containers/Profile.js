@@ -5,6 +5,12 @@ import StocksContainer from './StocksContainer';
 
 
 class Profile extends Component {
+
+  componentDidMount() {
+    console.log("I'll leave this here for now");
+  }
+
+
   render(){
     return(
       <div>

@@ -1,3 +1,5 @@
+const token = "Tpk_1ab330dccd114a60a3b61923aac87d00";
+
 export const handleSignup = newUser => {
   return dispatch => {
     fetch("http://localhost:3000/users", {
@@ -63,4 +65,15 @@ export const removeCurrentUser = () =>{
       type:"REMOVE_USER"
     })
   }
+}
+
+export const buyStock = stock => {
+  return dispatch => {
+    fetch(`https://sandbox.iexapis.com/stable/stock/${stock.ticker}/quote?token=${token}`)
+    .then(response => response.json())
+    .then(response => saveStock)
+  }
+}
+
+const saveStock = stockInfo => {
 }
