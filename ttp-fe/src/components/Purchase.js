@@ -18,7 +18,8 @@ class Purchase extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.buyStock(this.state);
+    // Need to add someway of making sure the ticker symbol the user has entered is valid or not.
+    this.props.buyStock(this.state,this.props.currentUser);
 
   }
 
@@ -38,4 +39,10 @@ class Purchase extends Component {
   }
 }
 
-export default connect(null,{ buyStock })(Purchase);
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps,{ buyStock })(Purchase);

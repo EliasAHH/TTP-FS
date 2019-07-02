@@ -18,6 +18,7 @@ class Signup extends Component {
   }
 
   handleSubmit = e => {
+    // for some reason does not create a token when i sign up, need to check this out.
     e.preventDefault();
     this.props.handleSignup(this.state);
   }
