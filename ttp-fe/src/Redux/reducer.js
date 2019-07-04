@@ -1,5 +1,6 @@
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  boughtStock: {}
 }
 
 
@@ -16,7 +17,10 @@ const reducer = (state = initialState,action) => {
 
     case "REMOVE_USER":
       localStorage.removeItem("token");
-      return {...state, currentUser:null}
+      return {...state, currentUser:null};
+
+    case "BUY_STOCKS":
+      return {...state, boughtStock:action.payload};
 
     default:
     return state;

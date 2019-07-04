@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <Fragment >
-        <Navbar handleLogout={this.handleLogout}/>
+        <Navbar handleLogout={this.handleLogout} />
         <Route path='/login' component={Login}/>
         <Route path='/signup' component={Signup}/>
         <Route path='/profile' component={Profile}/>
@@ -33,10 +33,5 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentUser:state.currentUser,
-  };
-};
 
-export default withRouter(connect(mapStateToProps,{ removeCurrentUser })(App));
+export default withRouter(connect(null,{ removeCurrentUser })(App));
