@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleSignup } from '../Redux/actioncreator'
+import { handleSignup } from '../Redux/actioncreator/useractions';
+import { withRouter } from 'react-router-dom';
 
 
 class Signup extends Component {
@@ -20,7 +21,9 @@ class Signup extends Component {
   handleSubmit = e => {
     // for some reason does not create a token when i sign up, need to check this out.
     e.preventDefault();
-    this.props.handleSignup(this.state);
+    this.props.handleSignup(this.state)
+      .then(() => this.props.history.push('/profile'))
+      .catch(() => this.props.history.push('/signup'))
   }
 
   render() {
@@ -42,4 +45,4 @@ class Signup extends Component {
   }
 
 }
-export default connect(null,{ handleSignup })(Signup);
+export default withRouter(connect(null,{ handleSignup })(Signup));

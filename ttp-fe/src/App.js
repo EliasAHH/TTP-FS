@@ -7,18 +7,9 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Profile from './containers/Profile'
 import Transactions from './containers/Transactions'
-import { fetchUser,removeCurrentUser } from './Redux/actioncreator';
+import { removeCurrentUser } from './Redux/actioncreator/useractions';
 
 class App extends Component {
-
-  componentDidMount() {
-    if(this.props.currentUser === null) {
-      if(localStorage.getItem("token")) {
-        this.props.fetchUser(localStorage.token);
-
-      }
-    }
-  }
 
   handleLogout = () => {
     localStorage.removeItem("token");
@@ -48,4 +39,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps,{ fetchUser,removeCurrentUser })(App));
+export default withRouter(connect(mapStateToProps,{ removeCurrentUser })(App));

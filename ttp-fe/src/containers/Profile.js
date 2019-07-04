@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Purchase from '../components/Purchase';
 import StocksContainer from './StocksContainer';
+import { connect } from 'react-redux';
+import { fetchUser } from '../Redux/actioncreator/useractions';
 
 
 
 class Profile extends Component {
 
   componentDidMount() {
-    console.log("I'll leave this here for now");
+      if(localStorage.getItem("token")) {
+        this.props.fetchUser(localStorage.token)
+    }
   }
 
 
@@ -21,4 +25,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default connect(null,{ fetchUser })(Profile);

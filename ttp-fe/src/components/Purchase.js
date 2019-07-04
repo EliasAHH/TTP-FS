@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { buyStock } from '../Redux/actioncreator';
+import { buyStock } from '../Redux/actioncreator/stockactions';
 
 
 class Purchase extends Component {
@@ -18,6 +18,7 @@ class Purchase extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.props.currentUser);
     // Need to add someway of making sure the ticker symbol the user has entered is valid or not.
     this.props.buyStock(this.state,this.props.currentUser);
 

@@ -1,5 +1,5 @@
 const initialState = {
-  currentUser:{}
+  currentUser: null
 }
 
 
@@ -11,6 +11,7 @@ const reducer = (state = initialState,action) => {
       return state;
 
     case "GET_USER":
+      console.log(action.payload)
       return {...state, currentUser:action.payload};
 
     case "REMOVE_USER":

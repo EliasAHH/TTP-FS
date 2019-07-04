@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleLogin } from '../Redux/actioncreator'
+import { handleLogin } from '../Redux/actioncreator/useractions';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
 
@@ -18,6 +19,8 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleLogin(this.state)
+      .then(() => this.props.history.push('/profile'))
+      .catch(() => this.props.history.push('/login'))
   }
 
   render() {
@@ -37,4 +40,4 @@ class Login extends Component {
   }
 
 }
-export default connect(null,{ handleLogin })(Login);
+export default withRouter(connect(null,{ handleLogin })(Login));
