@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Stocks from '../components/Stocks';
+// import { connect } from 'react-redux';
+// import { getOwnedStocks } from '../Redux/actioncreator/stockactions'
 
 
 class StocksContainer extends Component {
-  // Need to map through  all my owned stocks and simply send it to the child component. 
+
   render() {
     return (
       <div>

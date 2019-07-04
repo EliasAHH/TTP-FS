@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { buyStock,saveStock } from '../Redux/actioncreator/stockactions';
+import { buyStock } from '../Redux/actioncreator/stockactions';
 
 
 class Purchase extends Component {
@@ -18,9 +18,7 @@ class Purchase extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // Need to add someway of making sure the ticker symbol the user has entered is valid or not.
-    this.props.buyStock(this.state.ticker)
-      .then(() => this.props.saveStock(this.state.shares,this.props.boughtStock,this.props.currentUser))
+    this.props.buyStock(this.state, this.props.currentUser)
 
   }
 
@@ -42,9 +40,8 @@ class Purchase extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser,
-    boughtStock: state.boughtStock
+    currentUser: state.currentUser
   }
 }
 
-export default connect(mapStateToProps,{ buyStock,saveStock })(Purchase);
+export default connect(mapStateToProps,{ buyStock })(Purchase);
