@@ -13,7 +13,7 @@ export const buyStock = (purchasedStock,user) => {
 
 const saveStock = (shares,stockInfo,user) => {
   // Need to figure out a better way to connnect these two.
-    console.log("I hit saveStock");
+    console.log(stockInfo,'this is the stock info');
 
     const newStock = {
       shares: shares,

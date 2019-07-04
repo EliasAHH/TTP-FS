@@ -19,7 +19,7 @@ class Profile extends Component {
     return(
       <div>
         <Purchase />
-        <StocksContainer user={this.props.currentUser}/>
+        <StocksContainer user={this.props.currentUser} ownedStocks={this.props.ownedStocks}/>
       </div>
     );
   }
@@ -27,7 +27,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    ownedStocks: state.ownedStocks
   }
 }
 export default connect(mapStateToProps,{ fetchUser,getOwnedStocks })(Profile);

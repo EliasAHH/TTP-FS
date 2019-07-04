@@ -7,6 +7,7 @@ import Stocks from '../components/Stocks';
 class StocksContainer extends Component {
 
   render() {
+    console.log(this.props.ownedStocks,this.props.user);
     return (
       <div>
         <Stocks />
