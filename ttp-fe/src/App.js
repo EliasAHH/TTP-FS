@@ -10,7 +10,6 @@ import Transactions from './containers/Transactions'
 import { removeCurrentUser } from './Redux/actioncreator/useractions';
 
 class App extends Component {
-  
 
   handleLogout = () => {
     localStorage.removeItem("token");
@@ -33,6 +32,8 @@ class App extends Component {
 
   }
 }
+
+
 
 
 export default withRouter(connect(null,{ removeCurrentUser })(App));

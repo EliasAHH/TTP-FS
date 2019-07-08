@@ -37,8 +37,13 @@ const saveStock = (shares,stockInfo,user) => {
 
 export const getOwnedStocks = user => {
   return dispatch => {
-    fetch(`http://localhost:3000/users/${user.id}`)
+    return fetch(`http://localhost:3000/users/${user.id}`)
     .then(response => response.json())
-    .then(response => console.log(response))
+    .then(response => {
+      dispatch({
+        type: "OWNED_STOCKS",
+        payload: response
+      })
+    })
   }
 }

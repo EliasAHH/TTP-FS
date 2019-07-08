@@ -4,16 +4,18 @@ import Stocks from '../components/Stocks';
 // import { getOwnedStocks } from '../Redux/actioncreator/stockactions'
 
 
-class StocksContainer extends Component {
+const StocksContainer = props => {
+  const { user, ownedStocks } = props
 
-  render() {
-    console.log(this.props.ownedStocks,this.props.user);
-    return (
+  if(user !== null) {
+    return ownedStocks.map(stock => <Stocks key={stock.id} stock={stock} />)
+  }
+  return (
       <div>
-        <Stocks />
+        Loading...
       </div>
     );
-  }
 }
+
 
 export default StocksContainer;
