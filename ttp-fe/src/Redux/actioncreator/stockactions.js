@@ -1,38 +1,56 @@
 const token = "Tpk_1ab330dccd114a60a3b61923aac87d00";
 
-export const buyStock = (purchasedStock,user) => {
-  // the function works but won't translate to saveStock properly. need to work on this.
+const saveStock = (shares,stockInfo,user) => {
+  console.log(stockInfo,'this is the stock info');
+
+  const newStock = {
+    shares: shares,
+    ticker: stockInfo.symbol,
+    current_price: stockInfo.latestPrice,
+    user_id: user.id
+  };
+
+  fetch("http://localhost:3000/stocks", {
+    method:"POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify(newStock)
+  })
+}
+
+const updateStock = (shares, stockInfo, user) => {
+  const updatedInfo = {
+    shares: shares,
+    ticker: stockInfo.symbol,
+    current_price: stockInfo.latestPrice
+  };
+  fetch(`http://localhost:3000/owned_stocks/${user.id}`, {
+    method:"PATCH",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify(updatedInfo)
+  })
+
+}
+
+const newOrUpdate = (ownedStocks,purchasedStock,user,stockInfo) => {
+  // in my db the ticker will always be capitalized so I have to check the ticker in the db to the the capitalized version of the ticker the user wrote in.
+    const alreadyOwned = ownedStocks.filter(stock => stock.ticker === purchasedStock.ticker.toUpperCase())
+    if(alreadyOwned) {
+      updateStock(purchasedStock.shares,stockInfo ,user)
+    }else {
+      saveStock(purchasedStock.shares,stockInfo,user)
+    }
+}
+
+export const buyStock = (purchasedStock,user,ownedStocks) => {
   return dispatch => {
     fetch(`https://sandbox.iexapis.com/stable/stock/${purchasedStock.ticker}/quote?token=${token}`)
     .then(response => response.json())
-    .then(response => saveStock(purchasedStock.shares,response,user))
-  }
+    .then(response => newOrUpdate(ownedStocks,purchasedStock,user,response))}
 }
-// Since i'm not going to be saving the response in my reducer it's easier and cleaner
-// to just keep all the work under one function call.
-
-const saveStock = (shares,stockInfo,user) => {
-  // Need to figure out a better way to connnect these two.
-    console.log(stockInfo,'this is the stock info');
-
-    const newStock = {
-      shares: shares,
-      ticker: stockInfo.symbol,
-      current_price: stockInfo.latestPrice,
-      user_id: user.id
-    };
-
-    fetch("http://localhost:3000/stocks", {
-      method:"POST",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body:JSON.stringify(newStock)
-    })
-    .then(response => response.json())
-    .then(response => console.log(response))
-}
-
 
 
 export const getOwnedStocks = user => {

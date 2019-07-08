@@ -1,12 +1,10 @@
 import React from 'react';
 import Stocks from '../components/Stocks';
 import SumOfStocks from '../components/SumOfStocks';
-// import { connect } from 'react-redux';
-// import { getOwnedStocks } from '../Redux/actioncreator/stockactions'
 
 
 const StocksContainer = props => {
-  const { user, ownedStocks } = props
+  const { user, ownedStocks } = props;
 
   const sendStock = () => {
     if(user !== null) {
@@ -16,7 +14,7 @@ const StocksContainer = props => {
         <div>
         loading...
         </div>
-      )
+      );
   }
 }
 
@@ -27,7 +25,7 @@ const getStockValue = () => {
     },0)
     return (
         <SumOfStocks price={price} />
-    )
+    );
   }
 }
 

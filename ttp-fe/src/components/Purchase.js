@@ -18,7 +18,7 @@ class Purchase extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.buyStock(this.state, this.props.currentUser)
+      this.props.buyStock(this.state, this.props.currentUser,this.props.ownedStocks)
 
   }
 
@@ -40,7 +40,8 @@ class Purchase extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    ownedStocks: state.ownedStocks
   }
 }
 
