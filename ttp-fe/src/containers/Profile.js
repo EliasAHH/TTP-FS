@@ -12,9 +12,13 @@ class Profile extends Component {
       if(localStorage.getItem("token")) {
         this.props.fetchUser(localStorage.token)
         .then (() => this.props.getOwnedStocks(this.props.currentUser))
-          .then(() => this.props.getCurrentValues(this.props.ownedStocks))
-    }
-  }
+          .then(() => {
+            if(this.props.ownedStocks.length > 0) {
+              this.props.getCurrentValues(this.props.ownedStocks)
+            }
+          })
+        }
+      }
 
 
   render(){
