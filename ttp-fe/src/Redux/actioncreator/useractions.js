@@ -10,10 +10,15 @@ export const handleSignup = newUser => {
     })
     .then(response => response.json())
     .then(response => {
-      dispatch({
-        type:"LOG_IN_SIGN_UP",
-        payload:response
-      })
+      if(!response.error) {
+        dispatch({
+          type:"LOG_IN_SIGN_UP",
+          payload:response
+        })
+      }else {
+        response.error.map(error => alert(error))
+        throw new Error(response.error)
+      }
     })
   }
 }
@@ -29,10 +34,15 @@ export const handleLogin = user => {
     })
     .then(response => response.json())
     .then(response => {
-      dispatch({
-        type:"LOG_IN_SIGN_UP",
-        payload:response
-      })
+      if(!response.error) {
+        dispatch({
+          type:"LOG_IN_SIGN_UP",
+          payload:response
+        })
+      } else {
+        alert(response.error)
+        throw new Error(response.error)
+      }
     })
   }
 }
