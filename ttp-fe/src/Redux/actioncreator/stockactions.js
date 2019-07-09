@@ -38,7 +38,7 @@ const updateStock = (shares, stockInfo, user) => {
 const newOrUpdate = (ownedStocks,purchasedStock,user,stockInfo) => {
   // in my db the ticker will always be capitalized so I have to check the ticker in the db to the the capitalized version of the ticker the user wrote in.
     const alreadyOwned = ownedStocks.filter(stock => stock.ticker === purchasedStock.ticker.toUpperCase())
-    if(alreadyOwned) {
+    if(alreadyOwned.length > 0) {
       updateStock(purchasedStock.shares,stockInfo ,user)
     }else {
       saveStock(purchasedStock.shares,stockInfo,user)
