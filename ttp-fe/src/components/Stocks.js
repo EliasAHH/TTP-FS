@@ -15,7 +15,7 @@ const Stocks = props => {
   }
     return (
       <div>
-      {symbol} {shares} {latestPrice * shares} {checkOpen()}
+      {symbol} {shares} {(latestPrice * shares).toFixed(2)} {checkOpen()}
       </div>
     );
 }

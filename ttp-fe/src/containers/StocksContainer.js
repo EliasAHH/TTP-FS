@@ -1,6 +1,6 @@
 import React from 'react';
 import Stocks from '../components/Stocks';
-// import SumOfStocks from '../components/SumOfStocks';
+import SumOfStocks from '../components/SumOfStocks';
 
 
 const StocksContainer = props => {
@@ -8,10 +8,8 @@ const StocksContainer = props => {
 
   const sendStock = () => {
     if(stocksInfo !== null) {
-      for(let stock in stocksInfo){
-        return <Stocks key={stock} stock={stocksInfo[stock].quote} />
-        }
-    } else {
+      return Object.keys(stocksInfo).map(stock => <Stocks key={stock} stock={stocksInfo[stock].quote} />)
+      } else {
       return (
         <div>
           loading ...
@@ -21,20 +19,20 @@ const StocksContainer = props => {
   }
 
 
-// const getStockValue = () => {
-//   if(user !== null && ownedStocks.length > 0) {
-//     const price = ownedStocks.reduce((acc,stock) => {
-//       return (stock.bought_price * stock.shares) + acc;
-//     },0)
-//     return (
-//         <SumOfStocks price={price} />
-//     );
-//   }
-// }
-// {getStockValue()}
+const getStockValue = () => {
+  if(user && stocksInfo) {
+    const price = Object.keys(stocksInfo).reduce((acc,stock) => {
+      return (stocksInfo[stock].quote.latestPrice * stocksInfo[stock].quote.shares) + acc;
+    },0)
+    return (
+        <SumOfStocks price={price} />
+    );
+  }
+}
 
   return (
     <div>
+    {getStockValue()}
       {sendStock()}
     </div>
   )
