@@ -18,8 +18,12 @@ class Purchase extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    // shares comes in a string so I have to turn it into a int before checking to see if it's a whole # or not.
+    if(Number.isInteger(parseInt(this.state.shares))) {
       this.props.buyStock(this.state, this.props.currentUser,this.props.ownedStocks)
-
+    }else {
+      alert("You must enter a whole number in the shares field")
+    }
   }
 
 

@@ -49,7 +49,9 @@ export const buyStock = (purchasedStock,user,ownedStocks) => {
   return dispatch => {
     fetch(`https://sandbox.iexapis.com/stable/stock/${purchasedStock.ticker}/quote?token=${token}`)
     .then(response => response.json())
-    .then(response => newOrUpdate(ownedStocks,purchasedStock,user,response))}
+    .then(response => newOrUpdate(ownedStocks,purchasedStock,user,response))
+    .catch(() => alert("This Ticker symbol does not exist. Please type in a correct Ticker symbol"))
+  }
 }
 
 
