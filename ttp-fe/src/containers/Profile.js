@@ -4,7 +4,7 @@ import StocksContainer from './StocksContainer';
 import CurrentBalance from '../components/CurrentBalance';
 import { connect } from 'react-redux';
 import { fetchUser } from '../Redux/actioncreator/useractions';
-import { getOwnedStocks } from '../Redux/actioncreator/stockactions';
+import { getOwnedStocks, getCurrentValues } from '../Redux/actioncreator/stockactions';
 
 class Profile extends Component {
 
@@ -12,6 +12,7 @@ class Profile extends Component {
       if(localStorage.getItem("token")) {
         this.props.fetchUser(localStorage.token)
         .then (() => this.props.getOwnedStocks(this.props.currentUser))
+          .then(() => this.props.getCurrentValues(this.props.ownedStocks))
     }
   }
 
@@ -47,4 +48,4 @@ const mapStateToProps = state => {
     ownedStocks: state.ownedStocks
   }
 }
-export default connect(mapStateToProps,{ fetchUser,getOwnedStocks })(Profile);
+export default connect(mapStateToProps,{ fetchUser,getOwnedStocks,getCurrentValues })(Profile);

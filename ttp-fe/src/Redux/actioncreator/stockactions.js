@@ -67,3 +67,25 @@ export const getOwnedStocks = user => {
     })
   }
 }
+
+
+export const getCurrentValues = stocks => {
+  return dispatch => {
+    const stockSymbols = stocks.map(stock => stock.ticker).join(",");
+    // I'm planning to combine all the pieces I need into one object
+    fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${stockSymbols}&types=quote&token=${token}`)
+    .then(response => response.json())
+    .then(stockObj => {
+      stocks.forEach((ownedStock) => {
+        stockObj[ownedStock.ticker].quote["shares"] = ownedStock.shares
+      })
+      dispatch({
+        type:"STOCKS_CURRENT_VALUE",
+        payload:stockObj
+      })
+
+    })
+
+
+  }
+}
