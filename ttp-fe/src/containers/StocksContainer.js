@@ -1,37 +1,40 @@
 import React from 'react';
 import Stocks from '../components/Stocks';
-import SumOfStocks from '../components/SumOfStocks';
+// import SumOfStocks from '../components/SumOfStocks';
 
 
 const StocksContainer = props => {
-  const { user, ownedStocks } = props;
+  const { user, stocksInfo } = props;
 
   const sendStock = () => {
-    if(user !== null) {
-      return ownedStocks.map(stock => <Stocks key={stock.id} stock={stock} />)
+    if(stocksInfo !== null) {
+      for(let stock in stocksInfo){
+        return <Stocks key={stock} stock={stocksInfo[stock].quote} />
+        }
     } else {
       return (
         <div>
-        loading...
+          loading ...
         </div>
       );
+    }
   }
-}
 
-const getStockValue = () => {
-  if(user !== null && ownedStocks.length > 0) {
-    const price = ownedStocks.reduce((acc,stock) => {
-      return (stock.bought_price * stock.shares) + acc;
-    },0)
-    return (
-        <SumOfStocks price={price} />
-    );
-  }
-}
+
+// const getStockValue = () => {
+//   if(user !== null && ownedStocks.length > 0) {
+//     const price = ownedStocks.reduce((acc,stock) => {
+//       return (stock.bought_price * stock.shares) + acc;
+//     },0)
+//     return (
+//         <SumOfStocks price={price} />
+//     );
+//   }
+// }
+// {getStockValue()}
 
   return (
     <div>
-      {getStockValue()}
       {sendStock()}
     </div>
   )

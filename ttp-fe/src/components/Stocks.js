@@ -2,11 +2,21 @@ import React from 'react';
 
 
 const Stocks = props => {
-  const { bought_price, ticker, shares } = props.stock;
+  const { latestPrice, open, shares, symbol } = props.stock
+
+  const checkOpen = () => {
+    if(latestPrice > open){
+      return <span> green </span>
+    }else if(latestPrice === open) {
+      return <span> grey </span>
+    }else {
+      return <span> red </span>
+    }
+  }
 
     return (
       <div>
-        {bought_price} {shares} {ticker}
+      {symbol} {shares} {latestPrice * shares} {checkOpen()}
       </div>
     );
 }

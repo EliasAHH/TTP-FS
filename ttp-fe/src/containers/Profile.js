@@ -36,7 +36,7 @@ class Profile extends Component {
       <div>
         {getUserBalance()}
         <Purchase />
-        <StocksContainer user={this.props.currentUser} ownedStocks={this.props.ownedStocks}/>
+        <StocksContainer user={this.props.currentUser} stocksInfo={this.props.stocksUpdatedInfo}/>
       </div>
     );
   }
@@ -45,7 +45,8 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    ownedStocks: state.ownedStocks
+    ownedStocks: state.ownedStocks,
+    stocksUpdatedInfo: state.stocksUpdatedInfo
   }
 }
 export default connect(mapStateToProps,{ fetchUser,getOwnedStocks,getCurrentValues })(Profile);
