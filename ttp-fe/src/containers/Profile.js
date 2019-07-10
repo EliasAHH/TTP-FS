@@ -9,6 +9,7 @@ import '../stylesheets/Profile.scss';
 
 class Profile extends Component {
   componentDidMount() {
+    console.log('mounted');
     if(localStorage.getItem("token")) {
       this.props.fetchUser(localStorage.token)
       .then(() => this.props.getOwnedStocks(this.props.currentUser))

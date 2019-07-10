@@ -21,7 +21,7 @@ class Signup extends Component {
     e.preventDefault();
     this.props.handleSignup(this.state)
     .then(() => this.props.history.push('/profile'))
-    .catch(() => this.props.history.push('/signup'))
+    .catch(() => this.props.history.push('/'))
   }
 
   render() {

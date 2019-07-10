@@ -36,7 +36,7 @@ const updateStock = (shares, stockInfo, user) => {
 }
 const updateCurrentBalance = (user, stockInfo, shares) => {
   const newBalance = {
-    balance: user.balance - (stockInfo.latestPrice * parseInt(shares)).toFixed(2)
+    balance: (user.balance - (stockInfo.latestPrice * shares)).toFixed(2)
   }
   fetch(`http://localhost:3000/users/${user.id}`, {
     method:"PATCH",
