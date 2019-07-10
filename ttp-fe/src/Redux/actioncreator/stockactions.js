@@ -125,6 +125,10 @@ export const getHistory = user => {
   return dispatch => {
     fetch(`http://localhost:3000/transactions/users/${user}`)
     .then(response => response.json())
-    .then(response => console.log(response))
+    .then(response =>
+    dispatch({
+      type:"HISTORY",
+      payload:response
+    }))
   }
 }

@@ -1,7 +1,8 @@
 const initialState = {
   currentUser: null,
   ownedStocks: [],
-  stocksUpdatedInfo:null
+  stocksUpdatedInfo:null,
+  transactions:null
 }
 
 
@@ -26,6 +27,9 @@ const reducer = (state = initialState,action) => {
     case "STOCKS_CURRENT_VALUE":
       console.log(action.payload)
       return {...state, stocksUpdatedInfo:action.payload}
+
+    case "HISTORY":
+    return {...state,transactions:action.payload}
 
     default:
     return state;
