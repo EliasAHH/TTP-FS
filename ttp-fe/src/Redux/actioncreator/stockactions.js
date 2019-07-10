@@ -1,6 +1,6 @@
 const token = "Tpk_1ab330dccd114a60a3b61923aac87d00";
 
-const saveStock = (shares,stockInfo,user) => {
+const saveStock = (shares, stockInfo, user) => {
   console.log(stockInfo,'this is the stock info');
 
   const newStock = {
@@ -34,26 +34,45 @@ const updateStock = (shares, stockInfo, user) => {
   })
 
 }
-
-const newOrUpdate = (ownedStocks,purchasedStock,user,stockInfo) => {
-  // in my db the ticker will always be capitalized so I have to check the ticker in the db to the the capitalized version of the ticker the user wrote in.
-    const alreadyOwned = ownedStocks.filter(stock => stock.ticker === purchasedStock.ticker.toUpperCase())
-    if(alreadyOwned.length > 0) {
-      updateStock(purchasedStock.shares,stockInfo ,user)
-    }else {
-      saveStock(purchasedStock.shares,stockInfo,user)
-    }
+const updateCurrentBalance = (user, stockInfo, shares) => {
+  const newBalance = {
+    balance: user.balance - (stockInfo.latestPrice * parseInt(shares)).toFixed(2)
+  }
+  fetch(`http://localhost:3000/users/${user.id}`, {
+    method:"PATCH",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify(newBalance)
+  })
 }
 
-export const buyStock = (purchasedStock,user,ownedStocks) => {
-  return dispatch => {
-    fetch(`https://sandbox.iexapis.com/stable/stock/${purchasedStock.ticker}/quote?token=${token}`)
-    .then(response => response.json())
-    .then(response => newOrUpdate(ownedStocks,purchasedStock,user,response))
-    .catch(() => alert("This Ticker symbol does not exist. Please type in a correct Ticker symbol"))
+const newOrUpdate = (ownedStocks, purchasedStock, user, stockInfo) => {
+  // in my db the ticker will always be capitalized so I have to check the ticker in the db to the the capitalized version of the ticker the user wrote in.
+  const alreadyOwned = ownedStocks.filter(stock => stock.ticker === purchasedStock.ticker.toUpperCase())
+  if(alreadyOwned.length > 0) {
+    updateStock(purchasedStock.shares, stockInfo, user)
+  } else {
+    saveStock(purchasedStock.shares, stockInfo, user)
   }
 }
 
+
+export const buyStock = (purchasedStock, user, ownedStocks) => {
+  return dispatch => {
+    return fetch(`https://sandbox.iexapis.com/stable/stock/${purchasedStock.ticker}/quote?token=${token}`)
+    .then(response => response.json())
+    .then(response => {
+      if(user.balance < (purchasedStock.shares * response.latestPrice).toFixed(2)){
+        alert("You have insufficient funds to make this purchase at this time")
+      }else {
+        newOrUpdate(ownedStocks,purchasedStock,user,response)
+        updateCurrentBalance(user,response,purchasedStock.shares)
+      }
+    })
+    .catch(() => alert("This Ticker symbol does not exist. Please type in a correct Ticker symbol"))
+  }
+}
 
 export const getOwnedStocks = user => {
   return dispatch => {
@@ -68,23 +87,19 @@ export const getOwnedStocks = user => {
   }
 }
 
-
 export const getCurrentValues = stocks => {
   return dispatch => {
     const stockSymbols = stocks.map(stock => stock.ticker).join(",");
     fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${stockSymbols}&types=quote&token=${token}`)
     .then(response => response.json())
-    .then(stockObj => {
+    .then(stocksObj => {
       stocks.forEach((ownedStock) => {
-        stockObj[ownedStock.ticker].quote["shares"] = ownedStock.shares
+        stocksObj[ownedStock.ticker].quote["shares"] = ownedStock.shares
       })
       dispatch({
         type:"STOCKS_CURRENT_VALUE",
-        payload:stockObj
+        payload:stocksObj
       })
-
     })
-
-
   }
 }

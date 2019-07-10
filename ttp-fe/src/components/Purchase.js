@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { buyStock } from '../Redux/actioncreator/stockactions';
+import { withRouter } from 'react-router-dom';
 
 
 class Purchase extends Component {
@@ -49,4 +50,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps,{ buyStock })(Purchase);
+export default withRouter(connect(mapStateToProps,{ buyStock })(Purchase));

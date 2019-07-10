@@ -1,14 +1,14 @@
 import React from 'react';
-import Stocks from '../components/Stocks';
+import Stock from '../components/Stock';
 import SumOfStocks from '../components/SumOfStocks';
-
 
 const StocksContainer = props => {
   const { user, stocksInfo } = props;
 
   const sendStock = () => {
     if(stocksInfo !== null) {
-      return Object.keys(stocksInfo).map(stock => <Stocks key={stock} stock={stocksInfo[stock].quote} />)
+      return Object.keys(stocksInfo)
+        .map(ticker => <Stock key={ticker} stock={stocksInfo[ticker].quote} />)
       } else {
       return (
         <div>
@@ -18,25 +18,24 @@ const StocksContainer = props => {
     }
   }
 
-
-const getStockValue = () => {
-  if(user && stocksInfo) {
-    const price = Object.keys(stocksInfo).reduce((acc,stock) => {
-      return (stocksInfo[stock].quote.latestPrice * stocksInfo[stock].quote.shares) + acc;
-    },0)
-    return (
+  const getStockValue = () => {
+    if(user && stocksInfo) {
+      const price = Object.keys(stocksInfo)
+        .reduce((acc,ticker) => {
+          return (stocksInfo[ticker].quote.latestPrice * stocksInfo[ticker].quote.shares) + acc;
+      }, 0)
+      return (
         <SumOfStocks price={price} />
-    );
+      );
+    }
   }
-}
 
   return (
     <div>
-    {getStockValue()}
+      {getStockValue()}
       {sendStock()}
     </div>
-  )
+  );
 }
-
 
 export default StocksContainer;

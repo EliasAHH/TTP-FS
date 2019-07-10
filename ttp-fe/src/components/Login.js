@@ -4,7 +4,6 @@ import { handleLogin } from '../Redux/actioncreator/useractions';
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
-
   state = {
     email: "",
     password: ""
@@ -25,7 +24,7 @@ class Login extends Component {
 
   render() {
     console.log(this.state);
-    return(
+    return (
       <form onSubmit={this.handleSubmit}>
         <h1> Login </h1>
         <label> Email
@@ -34,10 +33,9 @@ class Login extends Component {
         <label> Password
           <input type= "password" placeholder="Password" name="password" onChange={this.handleChange}/>
         </label>
-        <button type="submit">Submit </button>
+        <button type="submit">Submit</button>
       </form>
-    )
+    );
   }
-
 }
-export default withRouter(connect(null,{ handleLogin })(Login));
+export default withRouter(connect(null, { handleLogin })(Login));

@@ -7,22 +7,19 @@ import { fetchUser } from '../Redux/actioncreator/useractions';
 import { getOwnedStocks, getCurrentValues } from '../Redux/actioncreator/stockactions';
 
 class Profile extends Component {
-
   componentDidMount() {
-      if(localStorage.getItem("token")) {
-        this.props.fetchUser(localStorage.token)
-        .then (() => this.props.getOwnedStocks(this.props.currentUser))
-          .then(() => {
-            if(this.props.ownedStocks.length > 0) {
-              this.props.getCurrentValues(this.props.ownedStocks)
-            }
-          })
+    if(localStorage.getItem("token")) {
+      this.props.fetchUser(localStorage.token)
+      .then(() => this.props.getOwnedStocks(this.props.currentUser))
+      .then(() => {
+        if(this.props.ownedStocks.length > 0) {
+          this.props.getCurrentValues(this.props.ownedStocks)
         }
-      }
+      })
+    }
+  }
 
-
-  render(){
-
+  render() {
     const getUserBalance = () => {
       if (this.props.currentUser !== null) {
         return <CurrentBalance balance={this.props.currentUser.balance} />
@@ -31,16 +28,18 @@ class Profile extends Component {
           <div>
             loading balance. Please Wait.
           </div>
-        )
+        );
       }
     }
 
-
-    return(
+    return (
       <div>
         {getUserBalance()}
         <Purchase />
-        <StocksContainer user={this.props.currentUser} stocksInfo={this.props.stocksUpdatedInfo}/>
+        <StocksContainer
+          user={this.props.currentUser}
+          stocksInfo={this.props.stocksUpdatedInfo}
+        />
       </div>
     );
   }
