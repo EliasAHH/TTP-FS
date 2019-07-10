@@ -9,13 +9,7 @@ const StocksContainer = props => {
     if(stocksInfo !== null) {
       return Object.keys(stocksInfo)
         .map(ticker => <Stock key={ticker} stock={stocksInfo[ticker].quote} />)
-      } else {
-      return (
-        <div>
-          loading ...
-        </div>
-      );
-    }
+      } 
   }
 
   const getStockValue = () => {

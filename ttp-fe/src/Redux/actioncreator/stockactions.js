@@ -22,8 +22,7 @@ const saveStock = (shares, stockInfo, user) => {
 const updateStock = (shares, stockInfo, user) => {
   const updatedInfo = {
     shares: shares,
-    ticker: stockInfo.symbol,
-    current_price: stockInfo.latestPrice
+    ticker: stockInfo.symbol
   };
   fetch(`http://localhost:3000/owned_stocks/${user.id}`, {
     method:"PATCH",
@@ -44,6 +43,22 @@ const updateCurrentBalance = (user, stockInfo, shares) => {
       "Content-Type": "application/json"
     },
     body:JSON.stringify(newBalance)
+  })
+}
+
+const recordTransaction = (user,stockInfo,purchasedStock) => {
+  let newTransaction = {
+    user_id:user.id,
+    ticker:purchasedStock.ticker,
+    price:stockInfo.latestPrice,
+    shares:purchasedStock.shares
+  }
+  fetch("http://localhost:3000/transactions", {
+    method:"POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body:JSON.stringify(newTransaction)
   })
 }
 
@@ -68,6 +83,7 @@ export const buyStock = (purchasedStock, user, ownedStocks) => {
       }else {
         newOrUpdate(ownedStocks,purchasedStock,user,response)
         updateCurrentBalance(user,response,purchasedStock.shares)
+        recordTransaction(user,response,purchasedStock)
       }
     })
     .catch(() => alert("This Ticker symbol does not exist. Please type in a correct Ticker symbol"))
@@ -101,5 +117,14 @@ export const getCurrentValues = stocks => {
         payload:stocksObj
       })
     })
+  }
+}
+
+
+export const getHistory = user => {
+  return dispatch => {
+    fetch(`http://localhost:3000/transactions/users/${user}`)
+    .then(response => response.json())
+    .then(response => console.log(response))
   }
 }
