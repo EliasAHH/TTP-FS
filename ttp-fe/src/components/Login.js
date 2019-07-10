@@ -19,20 +19,26 @@ class Login extends Component {
     e.preventDefault();
     this.props.handleLogin(this.state)
       .then(() => this.props.history.push('/profile'))
-      .catch(() => this.props.history.push('/login'))
+      .catch(() => this.props.history.push('/'))
   }
 
   render() {
     console.log(this.state);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1> Login </h1>
-        <label> Email
-          <input placeholder="Email" name="email" onChange={this.handleChange}/>
-         </label>
-        <label> Password
-          <input type= "password" placeholder="Password" name="password" onChange={this.handleChange}/>
-        </label>
+      <form onSubmit={this.handleSubmit} className="login">
+        <label> Email </label>
+        <input
+          placeholder="Email"
+          name="email"
+          onChange={this.handleChange}
+        />
+        <label> Password </label>
+        <input
+          type= "password"
+          placeholder="Password"
+          name="password"
+          onChange={this.handleChange}
+        />
         <button type="submit">Submit</button>
       </form>
     );

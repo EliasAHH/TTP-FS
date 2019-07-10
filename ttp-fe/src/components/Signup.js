@@ -26,8 +26,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1> Signup </h1>
+      <form onSubmit={this.handleSubmit} className="signup">
         <label>Name</label>
         <input
           placeholder="Your Name"

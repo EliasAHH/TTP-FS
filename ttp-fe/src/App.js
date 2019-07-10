@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import './App.scss'
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Home from './containers/Home';
 import Profile from './containers/Profile'
 import Transactions from './containers/Transactions'
@@ -14,13 +13,11 @@ class App extends Component {
     localStorage.removeItem("token");
     this.props.removeCurrentUser();
   }
+  // <Navbar handleLogout={this.handleLogout} />
 
   render() {
     return (
       <Fragment >
-        <Navbar handleLogout={this.handleLogout} />
-        <Route path='/login' component={Login}/>
-        <Route path='/signup' component={Signup}/>
         <Route path='/profile' component={Profile}/>
         <Route path='/transactions' component={Transactions}/>
         <Route exact path='/' component ={Home} />
