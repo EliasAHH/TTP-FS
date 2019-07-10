@@ -1,3 +1,4 @@
+//having trouble hiding the key . Will do later.
 const token = "Tpk_1ab330dccd114a60a3b61923aac87d00";
 
 const saveStock = (shares, stockInfo, user) => {
