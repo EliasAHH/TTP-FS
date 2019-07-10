@@ -1,0 +1,53 @@
+.sidebar {
+  height: 100%;
+  width: 200px;
+  display: inline-block;
+  position: relative;
+  padding: 38px 28px;
+  // background: linear-gradient(to right, #fff, #bec2f340);
+  background: #d2d2d236;
+
+  .user {
+    text-align: center;
+
+    h2 {
+      display: inline-block;
+      margin: 0;
+    }
+
+    a {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 13px;
+      text-decoration: none;
+      color: #2338987d;
+    }
+  }
+
+  ul {
+    margin: 50px 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      margin: 28px 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      a {
+        text-decoration: none;
+        color: #09305ff7;
+      }
+    }
+  }
+
+  .logout {
+    position: absolute;
+    bottom: 28px;
+    text-decoration: none;
+    color: black;
+  }
+}

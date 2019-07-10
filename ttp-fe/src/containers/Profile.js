@@ -5,6 +5,7 @@ import CurrentBalance from '../components/CurrentBalance';
 import { connect } from 'react-redux';
 import { fetchUser } from '../Redux/actioncreator/useractions';
 import { getOwnedStocks, getCurrentValues } from '../Redux/actioncreator/stockactions';
+import '../stylesheets/Profile.scss';
 
 class Profile extends Component {
   componentDidMount() {
@@ -33,13 +34,18 @@ class Profile extends Component {
     }
 
     return (
-      <div>
-        {getUserBalance()}
-        <Purchase />
-        <StocksContainer
-          user={this.props.currentUser}
-          stocksInfo={this.props.stocksUpdatedInfo}
-        />
+      <div className="profile">
+        <h1>Profile</h1>
+        <div className="content">
+          <StocksContainer
+            user={this.props.currentUser}
+            stocksInfo={this.props.stocksUpdatedInfo}
+          />
+          <div className="purchase-card">
+            {getUserBalance()}
+            <Purchase />
+          </div>
+        </div>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './App.scss'
 import { connect } from 'react-redux';
 import { withRouter, Route } from 'react-router-dom';
-// import Navbar from './components/Navbar';
+import Sidebar from './containers/Sidebar';
 import Home from './containers/Home';
 import Profile from './containers/Profile'
 import Transactions from './containers/Transactions'
@@ -18,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <Fragment >
+        {localStorage.token ? <Sidebar handleLogout={this.handleLogout}/> : null}
         <Route path='/profile' component={Profile}/>
         <Route path='/transactions' component={Transactions}/>
         <Route exact path='/' component ={Home} />

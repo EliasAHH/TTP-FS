@@ -31,12 +31,18 @@ class Purchase extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> Ticker
-          <input placeholder="Ticker" name="ticker" onChange={this.handleChange}/>
-        </label>
-        <label> Shares
-          <input placeholder="Shares" name="shares" onChange={this.handleChange}/>
-        </label>
+        <label> Ticker </label>
+        <input
+          placeholder="Ticker"
+          name="ticker"
+          onChange={this.handleChange}
+        />
+        <label> Shares </label>
+        <input
+          placeholder="Shares"
+          name="shares"
+          onChange={this.handleChange}
+        />
         <button type="submit"> Buy </button>
       </form>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 const CurrentBalance = props => {
   if(props.balance) {
     return (
-      <div>
+      <div className="balance">
         Current Balance: ${props.balance}
       </div>
     );

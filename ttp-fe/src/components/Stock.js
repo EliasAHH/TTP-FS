@@ -4,18 +4,20 @@ const Stock = props => {
   const { latestPrice, open, shares, symbol } = props.stock
 
   const checkOpen = () => {
-      if(latestPrice > open) {
-        return <span>green</span>
-      } else if(latestPrice === open) {
-        return <span>grey</span>
-      } else {
-        return <span>red</span>
+    if(latestPrice > open) {
+      return 'text-green'
+    } else if(latestPrice === open) {
+      return 'text-gray'
+    } else {
+      return 'text-red'
     }
   }
 
   return (
-    <div>
-      {symbol} {shares} {(latestPrice * shares).toFixed(2)} {checkOpen()}
+    <div className="stock">
+      <p id="symbol" className={checkOpen()}>{symbol}</p>
+      <p id="shares">{shares}</p>
+      <p id="price" className={checkOpen()}>${(latestPrice * shares).toFixed(2)}</p>
     </div>
   );
 }

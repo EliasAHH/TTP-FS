@@ -31,9 +31,11 @@ const StocksContainer = props => {
   }
 
   return (
-    <div>
+    <div className="stocks-container">
       {getStockValue()}
-      {sendStock()}
+      <div className="stocks">
+        {sendStock()}
+      </div>
     </div>
   );
 }

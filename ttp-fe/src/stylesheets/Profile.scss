@@ -1,0 +1,93 @@
+.profile {
+  display: inline-block;
+  height: 100%;
+  box-shadow: -5px 0px 14px 5px #989cc71f;
+  width: 100%;
+  padding: 28px;
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 38px;
+  }
+
+  .content {
+    display: flex;
+    max-width: 700px;
+
+    .stocks-container {
+      flex: 1;
+
+      .stocks-sum {
+        margin-bottom: 38px;
+        font-weight: 600;
+      }
+
+      .stocks {
+        height: 300px;
+        width: 300px;
+        overflow: scroll;
+      }
+
+      .stock {
+        display: flex;
+        padding-right: 16px;
+        width: 280px;
+        border-bottom: 1px solid #80808059;
+
+        p {
+          display: inline-block;
+          margin-right: 16px;
+        }
+
+        #symbol, #shares {
+          width: 50px;
+        }
+      }
+    }
+
+    .purchase-card {
+      flex: 1;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      padding: 16px;
+
+      form {
+        margin: 28px 0 21px;
+        label {
+          display: block;
+        }
+
+        input {
+          border: none;
+          border-bottom: 1px solid black;
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 28px;
+          font-size: 14px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        button {
+          width: 100%;
+          background: linear-gradient(to right, #36d1dc, #5b86e5);
+          padding: 10px;
+          border: none;
+          font-size: 14px;
+          color: black;
+        }
+      }
+    }
+  }
+
+  .text-green {
+    color: green;
+  }
+  .text-gray {
+    color: gray;
+  }
+  .text-red {
+    color: red;
+  }
+}
