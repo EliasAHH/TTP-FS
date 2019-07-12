@@ -84,7 +84,6 @@ export const buyStock = (purchasedStock, user, ownedStocks) => {
       if(user.balance < (purchasedStock.shares * response.latestPrice).toFixed(2)){
         alert("You have insufficient funds to make this purchase at this time")
       }else {
-        console.log("in the else block");
         newOrUpdate(ownedStocks,purchasedStock,user,response)
         .then(() => updateCurrentBalance(user,response,purchasedStock.shares))
         .then(() => recordTransaction(user,response,purchasedStock))
