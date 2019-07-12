@@ -2,7 +2,7 @@
 const token = "Tpk_1ab330dccd114a60a3b61923aac87d00";
 
 const saveStock = (shares, stockInfo, user) => {
-  console.log(stockInfo,'this is the stock info');
+  console.log('this is the stock info');
 
   const newStock = {
     shares: shares,
@@ -11,7 +11,7 @@ const saveStock = (shares, stockInfo, user) => {
     user_id: user.id
   };
 
-  fetch("http://localhost:3000/stocks", {
+  return fetch("http://localhost:3000/stocks", {
     method:"POST",
     headers:{
       "Content-Type": "application/json"
@@ -21,11 +21,12 @@ const saveStock = (shares, stockInfo, user) => {
 }
 
 const updateStock = (shares, stockInfo, user) => {
+  console.log('inside updateStock')
   const updatedInfo = {
     shares: shares,
     ticker: stockInfo.symbol
   };
-  fetch(`http://localhost:3000/owned_stocks/${user.id}`, {
+  return fetch(`http://localhost:3000/owned_stocks/${user.id}`, {
     method:"PATCH",
     headers:{
       "Content-Type": "application/json"
@@ -37,8 +38,8 @@ const updateStock = (shares, stockInfo, user) => {
 const updateCurrentBalance = (user, stockInfo, shares) => {
   const newBalance = {
     balance: (user.balance - (stockInfo.latestPrice * shares)).toFixed(2)
-  }
-  fetch(`http://localhost:3000/users/${user.id}`, {
+ }
+  return fetch(`http://localhost:3000/users/${user.id}`, {
     method:"PATCH",
     headers:{
       "Content-Type": "application/json"
@@ -48,6 +49,7 @@ const updateCurrentBalance = (user, stockInfo, shares) => {
 }
 
 const recordTransaction = (user,stockInfo,purchasedStock) => {
+  console.log("inside recordTransaction")
   let newTransaction = {
     user_id:user.id,
     ticker:purchasedStock.ticker,
@@ -67,9 +69,9 @@ const newOrUpdate = (ownedStocks, purchasedStock, user, stockInfo) => {
   // in my db the ticker will always be capitalized so I have to check the ticker in the db to the the capitalized version of the ticker the user wrote in.
   const alreadyOwned = ownedStocks.filter(stock => stock.ticker === purchasedStock.ticker.toUpperCase())
   if(alreadyOwned.length > 0) {
-    updateStock(purchasedStock.shares, stockInfo, user)
+    return updateStock(purchasedStock.shares, stockInfo, user)
   } else {
-    saveStock(purchasedStock.shares, stockInfo, user)
+    return saveStock(purchasedStock.shares, stockInfo, user)
   }
 }
 
@@ -82,9 +84,10 @@ export const buyStock = (purchasedStock, user, ownedStocks) => {
       if(user.balance < (purchasedStock.shares * response.latestPrice).toFixed(2)){
         alert("You have insufficient funds to make this purchase at this time")
       }else {
+        console.log("in the else block");
         newOrUpdate(ownedStocks,purchasedStock,user,response)
-        updateCurrentBalance(user,response,purchasedStock.shares)
-        recordTransaction(user,response,purchasedStock)
+        .then(() => updateCurrentBalance(user,response,purchasedStock.shares))
+        .then(() => recordTransaction(user,response,purchasedStock))
       }
     })
     .catch(() => alert("This Ticker symbol does not exist. Please type in a correct Ticker symbol"))
@@ -110,8 +113,10 @@ export const getCurrentValues = stocks => {
     fetch(`https://sandbox.iexapis.com/stable/stock/market/batch?symbols=${stockSymbols}&types=quote&token=${token}`)
     .then(response => response.json())
     .then(stocksObj => {
+      console.log(stocks)
       stocks.forEach((ownedStock) => {
         stocksObj[ownedStock.ticker].quote["shares"] = ownedStock.shares
+        stocksObj[ownedStock.ticker].quote["user_id"] = ownedStock.user_id
       })
       dispatch({
         type:"STOCKS_CURRENT_VALUE",

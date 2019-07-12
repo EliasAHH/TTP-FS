@@ -19,7 +19,7 @@ const reducer = (state = initialState,action) => {
 
     case "REMOVE_USER":
       localStorage.removeItem("token");
-      return {...state, currentUser:null};
+      return {...state, currentUser:null,ownedStocks:null};
 
     case "OWNED_STOCKS":
       return {...state, ownedStocks:action.payload};
